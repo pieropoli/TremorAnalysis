@@ -1,0 +1,7 @@
+GISMO NEEDED
+
+To read the continuos data form obspy_dmt go to correlation_codes/matlab folder.
+
+open processObspyDMTData_2.m and set the right paths
+
+Run the code!
