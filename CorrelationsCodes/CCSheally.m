@@ -1,12 +1,17 @@
 clear
 clc
 close
-n = 1;
 
 %% code to make autocorrelation detection as in Brwon paper. [very slow right now]
-% GISMO NEEDED
+% GISMO NEEDED as this code loead waveform object. But can be easily
+% adapted.
 
-%% read the data
+%% Feb. 2017
+% ppoli@mit.edu
+
+
+ %% read the data
+
 load('/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/DataProcessed/julDay_5.mat')
 
 %% use parameters
@@ -32,17 +37,12 @@ ctoto = eye(length(T),'single');
 
 for ij = 1 : length(T)
     for ii = ij+1 : length(T)
-        
         data1 = data(T(ij):T(ij)+win*25,:);
         data2 = data(T(ii):T(ii)+win*25,:);
         c = zeros(1,size(data1,2));
         for is = 1 : size(data,2)
-            c(is) = corrc_norm(data1(:,is),data2(:,is));
-            
-            
+            c(is) = corrc_norm(data1(:,is),data2(:,is)); 
         end
-        
-        
         ctoto(ij,ii) = sum(c);
     end
 end
