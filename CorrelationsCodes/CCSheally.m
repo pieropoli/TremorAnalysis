@@ -6,6 +6,9 @@ close
 % GISMO NEEDED as this code loead waveform object. But can be easily
 % adapted.
 
+addpath /Users/pieropoli/GISMO_r362/GISMO
+startup_GISMO
+
 %% Feb. 2017
 % ppoli@mit.edu
 

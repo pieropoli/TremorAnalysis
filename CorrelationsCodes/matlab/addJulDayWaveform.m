@@ -48,6 +48,8 @@ startTime    = startTimeAdd - tNum; % adjust start time
 Wadd         = set(Wadd,'start',startTime); % set new start time
 %--------------------------------------------------------------------------
 % Resample waveform
+wFreq = round(wFreq);
+resampleFrequency = round(resampleFrequency);
 
 D = DecimateAndStretch(D,wFreq,resampleFrequency);
 
@@ -69,12 +71,13 @@ endNum   = datenum(year,month,day+1,0,0,0); % matlab date number for aligning tr
 Wadd     = extract(Wadd,'time',startNum,endNum);
 %--------------------------------------------------------------------------
 % Add this data to the julian day matrix
-fname = [julDayDir '/julDay_' num2str(julDay) '.mat'];
+fname = [julDayDir '/julDay_' num2str(julDay) '_' get(Wadd,'channel') '.mat'];
 
 if exist(fname,'file')
     load(fname); % append new data in W
     wIdx = strcmp(get(W,'station'),get(Wadd,'station'));
-    if sum(wIdx) == 0
+    
+    if sum(wIdx) == 0 
         fprintf('Adding new waveform from station %s\n',get(Wadd,'station'));
         W(numel(W)+1) = Wadd;
     else

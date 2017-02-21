@@ -4,29 +4,23 @@ clc
 
 addpath /Users/pieropoli/GISMO_r362/GISMO
 startup_GISMO
-addpath /Users/pieropoli/Autmoatic_Parsing_Downloading_Events/ContinuosDataScanning/mat
-
+addpath /Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/matlab
 % Last modified 6 May 2014
 % Dylan Mikesell (mikesell@mit.edu)
-
-
 % Piero adde decimate and stretch resampling [Feb 2017]
 %--------------------------------------------------------------------------
 % User Input
 
-channel = 'BHE';
+channel = 'BH*';
 datatype = 'BH_VEL';
-julDayDir = ('/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/DataProcessed'); % directory for writing julian day data
+julDayDir = ('/Volumes/MIT_01/MAT/ChileTJ_3c'); % directory for writing julian day data
 resampleFrequency = 25; % (Hz)
-jday       = 1:31;
-dateFolder = '/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/ChileTJ/2007-01-01_2007-02-01'; % all folders have this date so hard coded for now
-
+jday       = 1;
+dateFolder = '/Volumes/MIT_01/DataPiero/ChileTJoneday/2007-01-05_2007-01-06'; % all folders have this date so hard coded for now
 
 %% CODE
-
 tmp_ii = pwd;
 mkdir(julDayDir)
-
 for jj = jday % loop through julian days
     fprintf('Checking Julian day: %d\n',jj);
     cd([char(dateFolder) '/continuous' sprintf('%02d',jj) ]);
