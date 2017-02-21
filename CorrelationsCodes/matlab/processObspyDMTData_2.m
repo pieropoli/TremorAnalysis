@@ -16,12 +16,14 @@ addpath /Users/pieropoli/Autmoatic_Parsing_Downloading_Events/ContinuosDataScann
 
 channel = 'BHE';
 datatype = 'BH_VEL';
-
-
 julDayDir = ('/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/DataProcessed'); % directory for writing julian day data
 resampleFrequency = 25; % (Hz)
 jday       = 1:31;
 dateFolder = '/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/ChileTJ/2007-01-01_2007-02-01'; % all folders have this date so hard coded for now
+
+
+%% CODE
+
 tmp_ii = pwd;
 mkdir(julDayDir)
 

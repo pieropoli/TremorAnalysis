@@ -3,20 +3,32 @@ clc
 close
 n = 1;
 
-T0 = 4;
-to = 3600;
+%% code to make autocorrelation detection as in Brwon paper. [very slow right now]
+% GISMO NEEDED
+
+%% read the data
 load('/Users/pieropoli/Autmoatic_Parsing_Downloading_Events/TremorAnalysis/CorrelationsCodes/DataProcessed/julDay_5.mat')
 
-Filt   = filterobject('B',[0.01,0.1],3); % create a frequency filter for waveform
+%% use parameters
+FB =[0.01,0.1]; % frequency band
+win = 250; % size og the window (note that the movout shoud be less than this otherwise no detection)
+lag = 0.5;
+btord = 3;
+
+
+%% selef determined paramters
+Fs = get(W(1),'Fs');
+
+%% filtering
+
+Filt   = filterobject('B',FB,btord); % create a frequency filter for waveform
 W1 = filtfilt(Filt,W); % apply the filter to the data
 data = double(W1);
-%data = data(T0*3600*25:T0*3600*25+to*25,:);
 
-win = 250;
-lag = 0.5;
-
-T = 1000*25 : lag*25 : length(data)-win*25-1;
+T = 1 : lag*Fs : length(data)-win*Fs-1;
 ctoto = eye(length(T),'single');
+
+%% Run the scanning
 
 for ij = 1 : length(T)
     for ii = ij+1 : length(T)
@@ -37,32 +49,5 @@ end
 ctoto = ctoto + ctoto' - eye(size(ctoto));
 
 
-for ic = 1 : size(ctoto,2)
-    
-    [m(ic),iy(ic)] = max(ctoto(:,ic));
-    
-    
-end
 
-plot(m)
-% 
-% [M,ix] = max(m);
-% ctoto(ix,iy(ix))
-% M
-% 
-% for ij = 1458 
-%     for ii = 1460
-%         
-%         data1 = data(T(ij):T(ij)+win*25,:);
-%         data2 = data(T(ii):T(ii)+win*25,:);
-%         
-%         for is = 1 : size(data,2)
-%             hold on
-%             plot(is+normalizeMy(data1(:,is)'));
-%             plot(is+normalizeMy(data2(:,is)'),'r');
-%             
-%         end
-%         
-%         
-%     end
-% end
+%% save  the output
